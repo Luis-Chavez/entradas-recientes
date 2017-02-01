@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Botón +1 Google+ en Amp</title>
+<meta content='width=device-width, initial-scale=1' name='viewport'>
+<style>
+#grupodelelcuse-code{border:1px solid #585858;width:100%;margin:0 auto;}
+#ayudadeblogger{margin:0px; padding: 3px 2px 3px 2px !important;}
+.adb-card{border:1px solid #ccc;margin:5px 0;padding:5px;height:79px}
+.adb-card img{background:#3f51b5;padding:4px;float:left;height:70px;margin-right:8px;width:70px;border-radius: 100%;}
+.adb-card h6,.adb-card h6 a{font-size:12px!important;font-weight:700!important;margin:0;color:#111}
+.adb-card:hover{background-color:#c3c3c3}
+.adb-card p{font:14px;text-align:justify;color:#000000;line-height:14px;margin:5px 0}
+#adb-loading{color:#888;font-family:Tahoma;font-size:100px;letter-spacing:-10px;text-align:center;text-shadow:-5px 0 1px #444;background:#e91e63 url(http://1.bp.blogspot.com/-vBDcLG_CXzU/UBqEMTknKcI/AAAAAAAAIHE/pZTfBZLbPwY/s1600/loading.gif) no-repeat 50% 50%;height:470px;border:1px solid #c3c3c3}
+#cajanavegacion{border:0px solid #c3c3c3;color:#bbb;font-family:Verdana;font-size:12px;text-align:center;margin:0px;     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);}
+#cajanavegacion:hover{box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);}
+#cajanavegacion a{color:#141414!important;font-family:Tahoma!important;font-size:12px!important;font-weight:400!important;display:block;padding:12px 10px}
+#cajanavegacion span{padding:12px 10px}
+#cajanavegacion .next{float:right; border-radius: 0px;
+    background: #dc033d; box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);}
+#cajanavegacion .previous{float:left;border-radius: 0px;
+    background: #dc033d; box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);}
+#cajanavegacion .home{text-align:center;     background: teal; font-size: 24px !important; box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);}
+#cajanavegacion a:hover,#cajanavegacion span.noactived{color:transparant!important}
+
+
+
+.adb-card img, .adb-card {
+box-shadow: 0 3px 10px rgba(0,0,0,.23), 0 3px 10px rgba(0,0,0,.16);
+}
+.adb-card img:hover, .adb-card:hover {
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);
+}
+.previous:hover, .next:hover{
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);
+}
+.card {
+    position: relative;
+    margin: 0.5rem 0 1rem 0;
+    background-color: #fff;
+    transition: box-shadow .25s;
+    border-radius: 2px;
+background:#EEEEEE;
+padding: 5px 7px 5px 6px !important;
+}
+ .card {
+   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+.card:hover{box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);}
+
+iframe{border:0}
+</style>
+<script>
+function getQueryVariable(variable) {
+	var query = window.location.search.substring(1);
+	var vars = query.split("&");
+	for (var i=0;i<vars.length;i++) {
+		var pair = vars[i].split("=");
+		if(pair[0] == variable){return pair[1];}
+	}
+	return(false);
+}
+var users = getQueryVariable("user");
+</script>
+</head>
+<body>
+<script>
+document.write('
+//<![CDATA[
+var numfeed = 9;
+var startfeed = 0;
+var urlblog = "'+ users +'";
+var charac = 60;
+var urlprevious, urlnext;
+
+function ayudadebloggerfeed(adbwidget,adbgroup){
+var showfeed = adbwidget.split("<");
+for(var i=0;i<showfeed.length;i++){
+if(showfeed[i].indexOf(">")!=-1){
+showfeed[i] = showfeed[i].substring(showfeed[i].indexOf(">")+1,showfeed[i].length);
+}
+}
+showfeed =  showfeed.join("");
+showfeed = showfeed.substring(0,adbgroup-1);
+return showfeed;
+}
+function adbayudadeblogger(json) {
+var entry, posttitle, posturl, postimg, postcontent;
+var showblogfeed = "";
+urlprevious = "";
+urlnext = "";
+for (var k = 0; k < json.feed.link.length; k++) {
+if (json.feed.link[k].rel == 'previous') {
+urlprevious = json.feed.link[k].href;
+}
+if (json.feed.link[k].rel == 'next') {
+urlnext = json.feed.link[k].href;
+}
+}
+for (var i = 0; i < numfeed; i++) {
+if (i == json.feed.entry.length) { break; }
+entry = json.feed.entry[i];
+posttitle = entry.title.$t;
+for (var k = 0; k < entry.link.length; k++) {
+if (entry.link[k].rel == 'alternate') {
+posturl = entry.link[k].href;
+break;
+}
+}
+if ("content" in entry) {
+postcontent = entry.content.$t;
+} else if ("summary" in entry) {
+postcontent = entry.summary.$t;
+} else {
+postcontent = "";
+}
+if ("media$thumbnail" in entry) {
+postimg = entry.media$thumbnail.url;
+} else {
+postimg = "http://2.bp.blogspot.com/-uitX7ROPtTU/Tyv-G4NA_uI/AAAAAAAAFBY/NcWLPVnYEnU/s1600/no+image.jpg";
+}
+showblogfeed += "<div class='adb-card'>";
+showblogfeed += "<a href='" + posturl + "' target='_blank'><img src='" + postimg + "' /></a>";
+showblogfeed += "<h6><a href='" + posturl + "'>" + posttitle + "</a></h6>";
+showblogfeed += "<p>" + ayudadebloggerfeed(postcontent,charac) + "...</p>";
+showblogfeed += "</div>";
+}
+document.getElementById("ayudadeblogger").innerHTML = showblogfeed;
+showblogfeed = "";
+if(urlprevious) {
+showblogfeed += "<a href='javascript:navigasifeed(-1);' class='previous'>&#9668;</a>";
+} else {
+showblogfeed += "<span class='noactived previous'>&#9668; </span>";
+}
+if(urlnext) {
+showblogfeed += "<a href='javascript:navigasifeed(1);' class='next'>&#9658;</a>";
+} else {
+showblogfeed += "<span class='noactived next'>&#9658;</span>";
+}
+showblogfeed += "<a href='javascript:navigasifeed(0);' class='home'>&#x1f3e0;</a>";
+document.getElementById("cajanavegacion").innerHTML = showblogfeed;
+}
+
+function navigasifeed(url){
+var p, parameter;
+if(url==-1) {
+p = urlprevious.indexOf("?");
+parameter = urlprevious.substring(p);
+} else if (url==1) {
+p = urlnext.indexOf("?");
+parameter = urlnext.substring(p);
+} else {
+parameter = "?start-index=1&max-results=" + numfeed + "&orderby=published&alt=json-in-script"
+}
+parameter += "&callback=adbayudadeblogger";
+incluirscript(parameter);
+}
+function incluirscript(parameter) {
+if(startfeed==1) {removerscript();}
+document.getElementById("ayudadeblogger").innerHTML = "<div id='adb-loading'></div>";
+document.getElementById("cajanavegacion").innerHTML = "";
+var archievefeed = urlblog + "/feeds/posts/default"+ parameter;
+var ayudadeblogger = document.createElement('script');
+ayudadeblogger.setAttribute('type', 'text/javascript');
+ayudadeblogger.setAttribute('src', archievefeed);
+ayudadeblogger.setAttribute('id', 'MASLABEL');
+document.getElementsByTagName('head')[0].appendChild(ayudadeblogger);
+startfeed = 1;
+}
+function removerscript() {
+var elemen = document.getElementById("MASLABEL");
+var parent = elemen.parentNode;
+parent.removeChild(elemen);
+}
+onload=function() { navigasifeed(0); }
+//]]>');
+</script>
+
+
+<div class="card">
+<div class="container-fluid" style="background-color:#F44336;color:#fff;height:40px; box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);"></div>
+<div id="ayudadeblogger"></div>
+<div id="cajanavegacion"></div></div>
+
+</body>
+</html>
+
+
+
